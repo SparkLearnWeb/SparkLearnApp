@@ -19,7 +19,7 @@ struct ContentView: View {
                 Text("\(config.slideTitle) (Slide \(slideNumber))")
                     .font(.largeTitle)
                 
-                Image(system_name: config.imageName) // Uses SF Symbols
+                Image(systemName: config.imageName) // Uses SF Symbols
                     .resizable()
                     .frame(width: 100, height: 100)
                 
