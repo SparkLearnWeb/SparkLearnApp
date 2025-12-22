@@ -8,13 +8,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Select Xcode Version
+        # This tells the system exactly where the tools are located
+        run: sudo xcode-select -s /Applications/Xcode_16.app/Contents/Developer
+
       - name: Create App Bundle
         run: |
-          # Create the necessary folder structure for a macOS .app
           mkdir -p MyApp.app/Contents/MacOS
           
-          # Compile the Swift files into a single executable
-          xcrun -sdk macos swiftc App.swift ContentView.swift -o MyApp.app/Contents/MacOS/MyApp
+          # Use the full SDK path to avoid "Error 72"
+          xcrun -sdk macosx swiftc App.swift ContentView.swift -o MyApp.app/Contents/MacOS/MyApp
           
-          # Create a basic Info.plist so macOS recognizes it as an app
-          echo '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "
+          echo '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "www.apple.com"><plist version="1.0"><dict><key>CFBundleExecutable</key><string>MyApp</string><key>CFBundleIdentifier</key><string>com.example.my-app</string><key>CFBundlePackageType</key><string>APPL</string><key>LSMinimumSystemVersion</key><string>14.0</string></dict></plist>' > MyApp.app/Contents/Info.plist
+
+      - name: Upload App
+        uses: actions/upload-artifact@v4
+        with:
+          name: MacAppBundle
+          path: MyApp.app
