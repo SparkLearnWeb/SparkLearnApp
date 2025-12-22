@@ -1,0 +1,20 @@
+name: Build macOS App
+on: [push]
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create App Bundle
+        run: |
+          # Create the necessary folder structure for a macOS .app
+          mkdir -p MyApp.app/Contents/MacOS
+          
+          # Compile the Swift files into a single executable
+          xcrun -sdk macos swiftc App.swift ContentView.swift -o MyApp.app/Contents/MacOS/MyApp
+          
+          # Create a basic Info.plist so macOS recognizes it as an app
+          echo '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "
