@@ -3,7 +3,7 @@ on: [push]
 
 jobs:
   build:
-    runs-on: macos-15
+    runs-on: macos-1
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -19,7 +19,7 @@ jobs:
           # Use the full SDK path to avoid "Error 72"
           xcrun -sdk macosx swiftc App.swift ContentView.swift -o LearnSimple.app/Contents/MacOS/LearnSimple
           
-          echo '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "www.apple.com"><plist version="1.0"><dict><key>CFBundleExecutable</key><string>LearnSimple</string><key>CFBundleIdentifier</key><string>com.example.my-app</string><key>CFBundlePackageType</key><string>APPL</string><key>LSMinimumSystemVersion</key><string>14.0</string></dict></plist>' > LearnSimple.app/Contents/Info.plist
+          echo '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "www.apple.com"><plist version="1.0"><dict><key>CFBundleExecutable</key><string>LearnSimple</string><key>CFBundleIdentifier</key><string>com.example.my-app</string><key>CFBundlePackageType</key><string>APPL</string><key>LSMinimumSystemVersion</key><string>1.0</string></dict></plist>' > LearnSimple.app/Contents/Info.plist
 
       - name: Upload App
         uses: actions/upload-artifact@v4
