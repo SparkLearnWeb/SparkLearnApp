@@ -3,7 +3,7 @@ on: [push]
 
 jobs:
   build:
-    runs-on: macos-1
+    runs-on: macos-15
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
